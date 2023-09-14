@@ -28,3 +28,31 @@ body {
     border: 1px solid #412C51;
     border-radius: 6px;
 }
+
+.tetris-grid > div.I {
+    background-color: #FA00FF;
+}
+
+.tetris-grid > div.T {
+    background-color: #FA00FF;
+}
+
+.tetris-grid > div.Z {
+    background-color: #FA00FF;
+}
+
+.tetris-grid > div.S {
+    background-color: #FA00FF;
+}
+
+.tetris-grid > div.O {
+    background-color: #FA00FF;
+}
+
+.tetris-grid > div.L {
+    background-color: #FA00FF;
+}
+
+.tetris-grid > div.J {
+    background-color: #FA00FF;
+}
