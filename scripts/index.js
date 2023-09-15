@@ -1,11 +1,25 @@
 import {Tetris} from "./tetris.js";
-import {convertPositionToIndex} from "./utils.js";
+import {convertPositionToIndex, playfieldColumns, playfieldRows} from "./utils.js";
 
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.tetris-grid>div');
+let requestId;
+let timeoutId;
 const draw = () => {
-    cells.forEach(cell => cell.removeAttribute('class'))
+    cells.forEach(cell => cell.removeAttribute('class'));
+    drawPlayfield()
     drawTetromino()
+}
+
+const drawPlayfield = () => {
+    for (let i = 0; i < playfieldRows; i++) {
+        for (let j = 0; j < playfieldColumns; j++) {
+            if (!tetris.playfield[i][j]) continue;
+            const name = tetris.playfield[i][j];
+            const cellIndex = convertPositionToIndex(i, j);
+            cells[cellIndex].classList.add(name);
+        }
+    }
 }
 const drawTetromino = () => {
     const name = tetris.tetromino.name;
@@ -19,4 +33,67 @@ const drawTetromino = () => {
         }
     }
 }
-draw()
+
+const startLoop = () => {
+    timeoutId = setTimeout(() => requestId = requestAnimationFrame(moveDown), 700)
+}
+
+const stopLoop = () => {
+    cancelAnimationFrame(requestId)
+    clearTimeout(timeoutId)
+}
+const gameOver = () => {
+    stopLoop()
+    document.removeEventListener('keydown', onKeyDown)
+}
+const moveDown = () => {
+    tetris.moveDown()
+    draw()
+    stopLoop()
+    startLoop()
+
+    if (tetris.isGameOver) {
+        gameOver()
+    }
+}
+
+const moveRight = () => {
+    tetris.moveRight()
+    draw()
+}
+
+const moveLeft = () => {
+    tetris.moveLeft()
+    draw()
+}
+
+const rotate = () => {
+    tetris.rotateTetromino();
+    draw()
+}
+
+const onKeyDown = (event) => {
+    switch (event.key) {
+        case 'ArrowUp':
+            rotate();
+            break;
+        case 'ArrowDown':
+            moveDown();
+            break
+        case 'ArrowLeft':
+            moveLeft();
+            break;
+        case 'ArrowRight':
+            moveRight();
+            break;
+        default:
+            break;
+    }
+}
+
+const initKeyDown = () => {
+    document.addEventListener('keydown', onKeyDown)
+}
+
+initKeyDown()
+moveDown()
