@@ -1,4 +1,5 @@
 import {getRandomElement, playfieldColumns, playfieldRows, rotateMatrix, tetrominoes, tetrominoNames} from "./utils.js";
+import {removeRowAudio} from "./audio.js";
 
 export class Tetris {
     constructor() {
@@ -130,5 +131,14 @@ export class Tetris {
         }
         this.playfield[0] = new Array(playfieldColumns).fill(0);
         this.score += 100;
+        removeRowAudio.play()
     };
+
+    clearGame() {
+        this.playfield = null;
+        this.tetromino = null;
+        this.isGameOver = false;
+        this.score = 0;
+        this.init();
+    }
 }

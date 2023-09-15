@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Play:wght@700&family=Quicksand:wght@400;700&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -59,21 +61,84 @@ body {
 }
 
 .tetris-score {
+    position: relative;
     display: flex;
     justify-content: center;
     gap: 20px;
     align-items: center;
     background-color: #32074F;
     min-width: 320px;
-    height: 200px;
+    height: 150px;
     padding: 10px;
     border-radius: 6px;
     font-size: 70px;
-    font-family: Roboto, sans-serif;
+    font-family: 'Play', sans-serif;
     color: #F900FF;
 }
 
 .score-logo {
     width: 50px;
     height: 50px;
+}
+
+.game-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.game-control {
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 5px 20px;
+    background-color: #32074F;
+}
+
+.game-control > img {
+    width: 50px;
+    height: 50px;
+}
+
+.active {
+    border: 1px solid #F900FF;
+}
+
+.game-menu-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-menu {
+    width: 500px;
+    height: 200px;
+    background-color: #412C51;
+    border-radius: 6px;
+    font-family: 'Play', sans-serif;
+    color: #F900FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+
+.start-game {
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
 }

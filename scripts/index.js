@@ -1,17 +1,21 @@
 import {Tetris} from "./tetris.js";
 import {convertPositionToIndex, playfieldColumns, playfieldRows} from "./utils.js";
+import {gameOverAudio, moveAudio, tetrisTheme} from "./audio.js";
 
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.tetris-grid>div');
 const score = document.querySelector('.score-count');
+const gameControlsButtons = document.querySelectorAll('.game-control');
+const startGameBtn = document.querySelector('.start-game');
 let requestId;
 let timeoutId;
+
 const draw = () => {
     cells.forEach(cell => cell.removeAttribute('class'));
     score.innerHTML = tetris.score;
-    drawPlayfield()
-    drawTetromino()
-}
+    drawPlayfield();
+    drawTetromino();
+};
 
 const drawPlayfield = () => {
     for (let i = 0; i < playfieldRows; i++) {
@@ -22,7 +26,8 @@ const drawPlayfield = () => {
             cells[cellIndex].classList.add(name);
         }
     }
-}
+};
+
 const drawTetromino = () => {
     const name = tetris.tetromino.name;
     const tetrominoMatrixSize = tetris.tetromino.matrix.length;
@@ -34,7 +39,7 @@ const drawTetromino = () => {
             cells[cellIndex].classList.add(name);
         }
     }
-}
+};
 
 const startLoop = () => {
     timeoutId = setTimeout(() => requestId = requestAnimationFrame(moveDown), 700);
@@ -48,6 +53,11 @@ const stopLoop = () => {
 const gameOver = () => {
     stopLoop();
     document.removeEventListener('keydown', onKeyDown);
+    tetrisTheme.pause()
+    gameOverAudio.play()
+    exitFromGame()
+    hideMenuToggle();
+
 };
 
 const moveDown = () => {
@@ -80,24 +90,77 @@ const onKeyDown = (event) => {
     switch (event.key) {
         case 'ArrowUp':
             rotate();
+            moveAudio.play()
             break;
         case 'ArrowDown':
             moveDown();
+            moveAudio.play()
             break
         case 'ArrowLeft':
             moveLeft();
+            moveAudio.play()
             break;
         case 'ArrowRight':
             moveRight();
+            moveAudio.play()
             break;
         default:
             break;
     }
 };
 
+
 const initKeyDown = () => {
     document.addEventListener('keydown', onKeyDown);
 };
+const startGame = () => {
+    initKeyDown();
+    moveDown();
+}
+const pauseGame = () => {
+    tetrisTheme.pause();
+    stopLoop()
+    document.removeEventListener('keydown', onKeyDown);
+}
+const exitFromGame = () => {
+    tetrisTheme.pause()
+    tetris.clearGame();
+    pauseGame();
+    draw();
+}
 
-initKeyDown();
-moveDown();
+const hideMenuToggle = () => {
+    const menuWrapper = document.querySelector('.game-menu-container');
+    const menu = document.querySelector('.game-menu');
+    menuWrapper.classList.toggle('hide')
+    menu.classList.toggle('hide')
+
+}
+startGameBtn.addEventListener('click', () => {
+    document.querySelector('[data-game="play"]').classList.add('active');
+    tetrisTheme.play()
+    startGame();
+    hideMenuToggle()
+
+})
+
+gameControlsButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.active').classList.remove('active');
+        button.classList.add('active');
+        const gameStatus = button.dataset.game;
+        if (gameStatus === 'play') {
+            startGame();
+        } else if (gameStatus === 'pause') {
+            pauseGame();
+        } else {
+            button.classList.remove('active')
+            exitFromGame();
+            hideMenuToggle();
+        }
+    })
+})
+
+
+
+
