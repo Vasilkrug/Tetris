@@ -13,12 +13,12 @@ export class Tetris {
     init() {
         this.generatePlayfield();
         this.generateTetromino();
-    }
+    };
 
     generatePlayfield() {
         this.playfield = new Array(playfieldRows).fill()
             .map(() => new Array(playfieldColumns).fill(0));
-    }
+    };
 
     generateTetromino() {
         const name = getRandomElement(tetrominoNames);
@@ -91,7 +91,6 @@ export class Tetris {
                     this.isGameOver = true;
                     return;
                 }
-
                 this.playfield[this.tetromino.row + i][this.tetromino.column + j] = this.tetromino.name;
             }
         }
@@ -110,7 +109,6 @@ export class Tetris {
 
     findFilledRows() {
         const filledRows = [];
-
         for (let i = 0; i < playfieldRows; i++) {
             if (this.playfield[i].every(cell => Boolean(cell))) {
                 filledRows.push(i);
@@ -131,7 +129,7 @@ export class Tetris {
         }
         this.playfield[0] = new Array(playfieldColumns).fill(0);
         this.score += 100;
-        removeRowAudio.play()
+        removeRowAudio.play();
     };
 
     clearGame() {
@@ -140,5 +138,5 @@ export class Tetris {
         this.isGameOver = false;
         this.score = 0;
         this.init();
-    }
+    };
 }

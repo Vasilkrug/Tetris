@@ -53,15 +53,14 @@ const stopLoop = () => {
 const gameOver = () => {
     stopLoop();
     document.removeEventListener('keydown', onKeyDown);
-    tetrisTheme.pause()
-    gameOverAudio.play()
+    tetrisTheme.pause();
+    gameOverAudio.play();
     exitFromGame()
     hideMenuToggle();
-
 };
 
 const moveDown = () => {
-    tetris.moveDown()
+    tetris.moveDown();
     draw();
     stopLoop();
     startLoop();
@@ -119,11 +118,11 @@ const startGame = () => {
 }
 const pauseGame = () => {
     tetrisTheme.pause();
-    stopLoop()
+    stopLoop();
     document.removeEventListener('keydown', onKeyDown);
 }
 const exitFromGame = () => {
-    tetrisTheme.pause()
+    tetrisTheme.pause();
     tetris.clearGame();
     pauseGame();
     draw();
@@ -132,17 +131,16 @@ const exitFromGame = () => {
 const hideMenuToggle = () => {
     const menuWrapper = document.querySelector('.game-menu-container');
     const menu = document.querySelector('.game-menu');
-    menuWrapper.classList.toggle('hide')
-    menu.classList.toggle('hide')
+    menuWrapper.classList.toggle('hide');
+    menu.classList.toggle('hide');
+};
 
-}
 startGameBtn.addEventListener('click', () => {
     document.querySelector('[data-game="play"]').classList.add('active');
-    tetrisTheme.play()
+    tetrisTheme.play();
     startGame();
-    hideMenuToggle()
-
-})
+    hideMenuToggle();
+});
 
 gameControlsButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -158,9 +156,5 @@ gameControlsButtons.forEach(button => {
             exitFromGame();
             hideMenuToggle();
         }
-    })
-})
-
-
-
-
+    });
+});
