@@ -7,7 +7,8 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    gap: 30px;
     height: 100vh;
     background-color: #1C0430;
 }
@@ -55,4 +56,24 @@ body {
 
 .tetris-grid > div.J {
     background-color: #FA00FF;
+}
+
+.tetris-score {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    background-color: #32074F;
+    min-width: 320px;
+    height: 200px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 70px;
+    font-family: Roboto, sans-serif;
+    color: #F900FF;
+}
+
+.score-logo {
+    width: 50px;
+    height: 50px;
 }
