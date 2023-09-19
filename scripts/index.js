@@ -1,6 +1,6 @@
 import {Tetris} from "./tetris.js";
 import {convertPositionToIndex, playfieldColumns, playfieldRows} from "./utils.js";
-import {gameOverAudio, moveAudio, tetrisTheme} from "./audio.js";
+import {gameOverAudio, moveAudio, tetrisTheme} from "../audio.js";
 
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.tetris-grid>div');
@@ -54,7 +54,7 @@ const gameOver = () => {
     stopLoop();
     document.removeEventListener('keydown', onKeyDown);
     tetrisTheme.pause();
-    gameOverAudio.play().then(r => r.play());
+    gameOverAudio.play()
     exitFromGame()
     hideMenuToggle();
 };
@@ -89,19 +89,19 @@ const onKeyDown = (event) => {
     switch (event.key) {
         case 'ArrowUp':
             rotate();
-            moveAudio.play().then(r => r.play());
+            moveAudio.play();
             break;
         case 'ArrowDown':
             moveDown();
-            moveAudio.play().then(r => r.play());
+            moveAudio.play();
             break
         case 'ArrowLeft':
             moveLeft();
-            moveAudio.play().then(r => r.play());
+            moveAudio.play();
             break;
         case 'ArrowRight':
             moveRight();
-            moveAudio.play().then(r => r.play())
+            moveAudio.play();
             break;
         default:
             break;
@@ -137,7 +137,7 @@ const hideMenuToggle = () => {
 
 startGameBtn.addEventListener('click', () => {
     document.querySelector('[data-game="play"]').classList.add('active');
-    tetrisTheme.play().then(r => r.play());
+    tetrisTheme.play();
     startGame();
     hideMenuToggle();
 });
