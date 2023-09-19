@@ -55,8 +55,8 @@ const gameOver = async () => {
     stopLoop();
     document.removeEventListener('keydown', onKeyDown);
     tetrisTheme.pause();
-    await gameOverAudio.play()
-    exitFromGame()
+    await gameOverAudio.play();
+    exitFromGame();
     hideMenuToggle();
 };
 
