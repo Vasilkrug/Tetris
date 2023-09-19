@@ -2,7 +2,6 @@ import {Tetris} from "./tetris.js";
 import {convertPositionToIndex, playfieldColumns, playfieldRows} from "./utils.js";
 import {gameOverAudio, moveAudio, tetrisTheme} from "../audio/audio.js";
 
-
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.tetris-grid>div');
 const score = document.querySelector('.score-count');
@@ -113,21 +112,25 @@ const onKeyDown = async (event) => {
 const initKeyDown = () => {
     document.addEventListener('keydown', onKeyDown);
 };
-const startGame = () => {
+
+const startGame = async () => {
     initKeyDown();
     moveDown();
-}
+    await tetrisTheme.play();
+};
+
 const pauseGame = () => {
     tetrisTheme.pause();
     stopLoop();
     document.removeEventListener('keydown', onKeyDown);
-}
+};
+
 const exitFromGame = () => {
     tetrisTheme.pause();
     tetris.clearGame();
     pauseGame();
     draw();
-}
+};
 
 const hideMenuToggle = () => {
     const menuWrapper = document.querySelector('.game-menu-container');
