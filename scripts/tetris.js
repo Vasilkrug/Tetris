@@ -1,5 +1,5 @@
 import {getRandomElement, playfieldColumns, playfieldRows, rotateMatrix, tetrominoes, tetrominoNames} from "./utils.js";
-import {removeRowAudio} from "../audio.js";
+import {removeRowAudio} from "../audio/audio.js";
 
 export class Tetris {
     constructor() {

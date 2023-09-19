@@ -1,6 +1,7 @@
 import {Tetris} from "./tetris.js";
 import {convertPositionToIndex, playfieldColumns, playfieldRows} from "./utils.js";
-import {gameOverAudio, moveAudio, tetrisTheme} from "../audio.js";
+import {gameOverAudio, moveAudio, tetrisTheme} from "../audio/audio.js";
+
 
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.tetris-grid>div');
@@ -50,11 +51,11 @@ const stopLoop = () => {
     clearTimeout(timeoutId);
 };
 
-const gameOver = () => {
+const gameOver = async () => {
     stopLoop();
     document.removeEventListener('keydown', onKeyDown);
     tetrisTheme.pause();
-    gameOverAudio.play()
+    await gameOverAudio.play()
     exitFromGame()
     hideMenuToggle();
 };
@@ -85,23 +86,23 @@ const rotate = () => {
     draw();
 };
 
-const onKeyDown = (event) => {
+const onKeyDown = async (event) => {
     switch (event.key) {
         case 'ArrowUp':
             rotate();
-            moveAudio.play();
+            await moveAudio.play();
             break;
         case 'ArrowDown':
             moveDown();
-            moveAudio.play();
+            await moveAudio.play();
             break
         case 'ArrowLeft':
             moveLeft();
-            moveAudio.play();
+            await moveAudio.play();
             break;
         case 'ArrowRight':
             moveRight();
-            moveAudio.play();
+            await moveAudio.play();
             break;
         default:
             break;
@@ -135,9 +136,9 @@ const hideMenuToggle = () => {
     menu.classList.toggle('hide');
 };
 
-startGameBtn.addEventListener('click', () => {
+startGameBtn.addEventListener('click', async () => {
     document.querySelector('[data-game="play"]').classList.add('active');
-    tetrisTheme.play();
+    await tetrisTheme.play();
     startGame();
     hideMenuToggle();
 });
