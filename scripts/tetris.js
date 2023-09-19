@@ -129,7 +129,7 @@ export class Tetris {
         }
         this.playfield[0] = new Array(playfieldColumns).fill(0);
         this.score += 100;
-        removeRowAudio.play();
+        removeRowAudio.play().then(r => r.play());
     };
 
     clearGame() {

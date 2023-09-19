@@ -54,7 +54,7 @@ const gameOver = () => {
     stopLoop();
     document.removeEventListener('keydown', onKeyDown);
     tetrisTheme.pause();
-    gameOverAudio.play();
+    gameOverAudio.play().then(r => r.play());
     exitFromGame()
     hideMenuToggle();
 };
@@ -89,19 +89,19 @@ const onKeyDown = (event) => {
     switch (event.key) {
         case 'ArrowUp':
             rotate();
-            moveAudio.play()
+            moveAudio.play().then(r => r.play());
             break;
         case 'ArrowDown':
             moveDown();
-            moveAudio.play()
+            moveAudio.play().then(r => r.play());
             break
         case 'ArrowLeft':
             moveLeft();
-            moveAudio.play()
+            moveAudio.play().then(r => r.play());
             break;
         case 'ArrowRight':
             moveRight();
-            moveAudio.play()
+            moveAudio.play().then(r => r.play())
             break;
         default:
             break;
@@ -137,7 +137,7 @@ const hideMenuToggle = () => {
 
 startGameBtn.addEventListener('click', () => {
     document.querySelector('[data-game="play"]').classList.add('active');
-    tetrisTheme.play();
+    tetrisTheme.play().then(r => r.play());
     startGame();
     hideMenuToggle();
 });
